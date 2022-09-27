@@ -113,7 +113,7 @@ add lombok jar as a dependence
 
 		 map.entrySet().stream().filter(t->t.getValue().contains("V")).forEach(i-> System.out.println("map filter "+i.getValue()))	;
 		
-#collect 
+#Collect 
  #1  
     private  @Getter @Setter  int empId;
     private  @Getter @Setter  String empName;
@@ -137,7 +137,7 @@ add lombok jar as a dependence
 		
 
 
-Sorting list and map using stream and sorted with compartor
+#Sorting list and map using stream and sorted with compartor
 
 #List
 
@@ -177,7 +177,7 @@ Sorting list and map using stream and sorted with compartor
 		
 
 
-#map
+#Map
 
         Map<Employee,Integer> map=new HashMap<>();
         map.put(new Employee(101,"Srikannth","IT","Hyderabad", 920000),10);
