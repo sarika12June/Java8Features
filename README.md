@@ -177,7 +177,7 @@ add lombok jar as a dependence
 		
 
 
-#Map
+#retirve map
 
         Map<Employee,Integer> map=new HashMap<>();
         map.put(new Employee(101,"Srikannth","IT","Hyderabad", 920000),10);
@@ -186,6 +186,72 @@ add lombok jar as a dependence
         map.put(new Employee(104,"Vijaya","Admin","Chennai", 900000),40);
         map.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.comparing(Employee::getSalary))).forEach(i-> System.out.println("map "+i));
 		
+
+
+# difference Map and Flat map
+    both are intermediate methods which returns another stream object
+	Map :it is used for transformation
+	FlatMap : it is used for transformation and flaterring
+	
+	
+Map : Stream<R> map(function <? Super T ,? extends R>mapper){return  Stream<R>}
+it is mapper function produces single values for each input value,hence it is called one to one mapping
+
+FlatMap :  it takes stream of stream as input  return stream as output
+Stream<R> map(Stream<II>(Stream<I>) m){return  Stream<R>}
+it is mapper function produces Mutiple  values for each input value,hence it is called one to many mapping
+
+
+converting single stream as another Stream is map .['a','b']=>['A','B']
+converting stream of stream as another single stream =>[[a,b],[c,d]]=>['a','b','c','d']
+
+
+
+
+#1 
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Customer {
+    private @Getter @Setter int id;
+    private @Getter @Setter String name;
+    private @Getter @Setter  String email;
+    private @Getter @Setter List<String> phoneNumbers;
+	
+#2
+   public static List<Customer> getCustomers(){
+     return  Stream.of(
+              new Customer(101, "john", "john@gmail.com", Arrays.asList("397937955", "21654725")),
+              new Customer(102, "smith", "smith@gmail.com", Arrays.asList("89563865", "2487238947")),
+              new Customer(103, "peter", "peter@gmail.com", Arrays.asList("38946328654", "3286487236")),
+              new Customer(104, "kely", "kely@gmail.com", Arrays.asList("389246829364", "948609467"))
+      ).collect(Collectors.toList());
+    }
+	
+#3
+  List<String> emails=CustomerDAO.getCustomers().stream().map(customer -> customer.getEmail()).collect(Collectors.toList());
+        emails.stream().forEach(i ->{
+            System.out.println("using map "+i);
+        });
+		
+#4
+
+	List<String> pheNumber=CustomerDAO.getCustomers().stream().flatMap(customer -> customer.getPhoneNumbers().stream()).collect(Collectors.toList());
+	pheNumber.stream().forEach(i ->{
+				System.out.println("using flat map "+i);
+	 });
+
+
+Differences between Java 8 Map() Vs flatMap() :
+
+map() | flatMap() | 
+--- | --- |  
+It processes stream of values. | It processes stream of stream of values. 
+It does only mapping. | It performs mapping as well as flattening.
+It’s mapper function produces single value for each input value. | It’s mapper function produces multiple values for each input value. 
+It is a One-To-One mapping. | It is a One-To-Many mapping. 
+Data Transformation : From Stream<T> to Stream<R> | Data Transformation : From Stream<Stream<T> to Stream<R> 
+Use this method when the mapper function is producing a single value for each input value. | Use this method when the mapper function is producing multiple values for each input value. 
 
 
 
