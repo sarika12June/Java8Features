@@ -255,6 +255,34 @@ Use this method when the mapper function is producing a single value for each in
 
 
 
+#Opitional
+*it is used for avoid NPE  => we can opitional object using empty(), of(T t),ofNullable(T t)
+
+
+#Map and reduce :
+Map -> Transforming data
+Reduce -> Aggregating data
+
+example => [2,4,5,6,7]=>sum of number s present in stream
+
+Map => transform stream<object> to stream<int>
+Reduce => combine stream of int and produce the sum of int
+syntax :reduce(initialVal,accumulator);
+example.Integer sumResult =Stream.of(122,2,3,).reduce(0,(a,b)->a+b);
+
+
+#Parallel Stream 
+
+we will divide the code the mutiple stream , that are executed on mutiple cores.
+
+order of execution is not order
+
+
+
+
+
+
+
 
 
 
